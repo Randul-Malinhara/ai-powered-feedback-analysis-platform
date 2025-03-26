@@ -1,4 +1,3 @@
-```markdown
 # AI-Powered Feedback Analysis Platform
 
 This project is a sample web application that allows users to submit feedback (text, images, audio), analyzes the feedback using **Azure Cognitive Services**, and stores both the raw feedback and analysis results in **Azure SQL Database**. Attachments (images/audio) are stored in **Azure Blob Storage**. An **Admin Dashboard** displays recent feedback and basic sentiment trends.
@@ -203,4 +202,3 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 ---
 
 **Enjoy building and expanding this AI-Powered Feedback Analysis Platform!**
-```"# ai-powered-feedback-analysis-platform" 
