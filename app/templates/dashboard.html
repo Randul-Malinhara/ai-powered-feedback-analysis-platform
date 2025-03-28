@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <!-- Include Chart.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    
+    <h2>Recent Feedbacks</h2>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Feedback</th>
+                <th>Sentiment</th>
+                <th>Submitted At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fb in feedbacks %}
+            <tr>
+                <td>{{ fb.id }}</td>
+                <td>{{ fb.name }}</td>
+                <td>{{ fb.email }}</td>
+                <td>{{ fb.feedback_text }}</td>
+                <td>{{ fb.sentiment }}</td>
+                <td>{{ fb.created_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <h2>Sentiment Trends</h2>
+    <canvas id="sentimentChart" width="400" height="200"></canvas>
+    <script>
+        // Dummy data for illustration. Replace with real aggregated data.
+        const labels = ["Positive", "Neutral", "Negative"];
+        const data = [5, 3, 2];
+        
+        const ctx = document.getElementById('sentimentChart').getContext('2d');
+        const sentimentChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Feedback Count',
+                    data: data,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
