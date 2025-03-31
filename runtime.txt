@@ -1,1 +1,4 @@
-python-3.11.7
+chore: Update runtime to Python 3.11.7
+
+- Changed runtime.txt from python-3.10.x to python-3.11.7
+- Ensures the application runs on the latest supported Python version
