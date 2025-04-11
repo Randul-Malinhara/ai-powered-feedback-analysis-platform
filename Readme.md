@@ -1,20 +1,20 @@
 # AI-Powered Feedback Analysis Platform
 
-This project is a sample web application that allows users to submit feedback (text, images, audio), analyzes the feedback using **Azure Cognitive Services**, and stores both the raw feedback and analysis results in **Azure SQL Database**. Attachments (images/audio) are stored in **Azure Blob Storage**. An **Admin Dashboard** displays recent feedback and basic sentiment trends.
+This project is a sample web application that allows users to submit feedback (text, images, audio), analyzes the feedback using **Azure Cognitive Services**, and stores both the raw feedback and analysis results in **Azure SQL Database**. Attachments (images/audio) are stored in **Azure Blob Storage**. An **Admin Dashboard** displays recent feedback and basic sentiment trends. The platform now includes asynchronous database operations, an improved folder structure, and refined endpoints.
 
 ---
 
 ## Table of Contents
 
-- [Overview](#overview)
-- [Architecture](#architecture)
-- [Features](#features)
-- [Prerequisites](#prerequisites)
-- [Local Development](#local-development)
-- [Deployment to Azure](#deployment-to-azure)
-- [Configuration](#configuration)
-- [Project Structure](#project-structure)
-- [Contributing](#contributing)
+- [Overview](#overview)  
+- [Architecture](#architecture)  
+- [Features](#features)  
+- [Prerequisites](#prerequisites)  
+- [Local Development](#local-development)  
+- [Deployment to Azure](#deployment-to-azure)  
+- [Configuration](#configuration)  
+- [Project Structure](#project-structure)  
+- [Contributing](#contributing)  
 - [License](#license)
 
 ---
@@ -23,46 +23,59 @@ This project is a sample web application that allows users to submit feedback (t
 
 1. **User Feedback Form**  
    Users can submit their name, email, feedback text, and an optional file (image/audio).
-   
+
 2. **Sentiment & Key Phrase Analysis**  
    Leverages [Azure Cognitive Services Text Analytics](https://learn.microsoft.com/en-us/azure/cognitive-services/text-analytics/) to determine sentiment and extract key phrases.
 
 3. **Database & Storage**  
    - **Azure SQL** is used to store feedback records and analysis results.  
-   - **Azure Blob Storage** stores user-uploaded attachments.  
+   - **Azure Blob Storage** handles user-uploaded attachments.  
 
 4. **Admin Dashboard**  
-   Displays recent feedback entries and basic sentiment metrics (with Chart.js).
+   Displays recent feedback entries and basic sentiment metrics (powered by Chart.js).
+
+5. **Asynchronous Database Operations**  
+   Utilizes SQLAlchemy’s async engine for performant and scalable CRUD operations.
 
 ---
 
 ## Architecture
 
 ```bash
-ai-feedback-platform/
-│
-├── app/
-│   ├── main.py                 # FastAPI application setup
-│   ├── views.py                # API endpoints & routes
-│   ├── services/
-│   │   ├── cognitive.py        # Azure Cognitive Services calls
-│   │   ├── storage.py          # Azure Blob Storage integration
-│   │   └── db.py               # Database connection & operations
-│   ├── models/
-│   │   └── feedback.py         # SQLAlchemy model for feedback
-│   └── templates/
-│       ├── index.html          # User feedback form
-│       └── dashboard.html      # Admin analytics dashboard
-│
-├── static/
-│   └── css/
-│       └── styles.css          # Basic styling
-├── .env                        # Environment variables (not committed to source)
-├── config.py                   # Loads environment variables
-├── requirements.txt            # Python dependencies
-├── runtime.txt                 # Python runtime version for Azure
-└── README.md                   # Project documentation
-```
+AI-Powered-Feedback-Analysis-Platform/
+├── app
+│   ├── api
+│   │   ├── endpoints.py         # Defines FastAPI routes/endpoints
+│   │   └── __init__.py
+│   ├── models
+│   │   ├── feedback.py          # SQLAlchemy model for feedback
+│   │   └── __init__.py
+│   ├── schemas
+│   │   ├── feedback.py          # Pydantic schemas for data validation
+│   │   └── __init__.py
+│   ├── services
+│   │   ├── cognitive.py         # Azure Cognitive Services integration
+│   │   ├── db.py                # (Optional) Synchronous DB operations (if still used)
+│   │   ├── db_async_sqlalchemy.py # Asynchronous DB operations with SQLAlchemy
+│   │   ├── storage.py           # Azure Blob Storage integration
+│   │   └── __init__.py
+│   ├── templates
+│   │   ├── index.html           # User feedback form
+│   │   └── dashboard.html       # Admin dashboard
+│   ├── main.py                  # Entry point (FastAPI application)
+│   └── __init__.py
+├── static
+│   ├── css
+│   │   └── styles.css           # Basic styling
+│   └── js
+│       └── dashboard.js         # Client-side logic for the dashboard
+├── config.py                    # Loads environment variables / config
+├── Dockerfile                   # Docker container instructions
+├── README.md                    # Project documentation
+├── requirements.txt             # Python dependencies
+├── runtime.txt                  # Python runtime version for Azure
+└── .env                         # Local environment variables (excluded from git)
+
 
 ---
 
